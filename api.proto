@@ -1,0 +1,26 @@
+// api.proto
+
+// This file defines the Whist public API.
+syntax = "proto3";
+
+package com.whist.rpcs;
+
+option go_package = "github.com/whisthq/rpcs/whist";
+
+// The StreamingParamsService service provides an RPC for retrieving the
+// parameters the Whist protocol client should use to connect to a Mandelbox.
+service StreamingParamsService {
+  // The GetStreamingParams RPC takes as input a request to start a streaming
+  // session and returns the parameters the Whist protocol client should use to
+  // connect to the allocated Mandelbox.
+  rpc GetStreamingParams (StreamingParamsRequest) returns (StreamingParamsResponse);
+}
+
+
+// A StreamingParamsRequest message represents a request to start a streaming
+// session.
+message StreamingParamsRequest {}
+
+// A StreamingParamsResponse message contains the parameters the Whist protocol
+// client should use to connect to an allocated Mandelbox.
+message StreamingParamsResponse {}

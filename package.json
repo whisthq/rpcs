@@ -1,0 +1,13 @@
+{
+  "name": "@whist/rpcs",
+  "version": "0.0.0",
+  "description": "Auto-generated Typescript RPC client and server stubs for the Whist API",
+  "scripts": {
+    "generate": "./generate.sh",
+    "prepare": "npm run generate"
+  },
+  "devDependencies": {
+    "grpc-tools": "^1.11.2",
+    "ts-protoc-gen": "^0.15.0"
+  }
+}
