@@ -10,17 +10,31 @@ option go_package = "github.com/whisthq/rpcs/whist";
 // The StreamingParamsService service provides an RPC for retrieving the
 // parameters the Whist protocol client should use to connect to a Mandelbox.
 service StreamingParamsService {
-  // The GetStreamingParams RPC takes as input a request to start a streaming
+  // The StreamingParams RPC takes as input a request to start a streaming
   // session and returns the parameters the Whist protocol client should use to
   // connect to the allocated Mandelbox.
-  rpc GetStreamingParams (StreamingParamsRequest) returns (StreamingParamsResponse);
+  rpc StreamingParams(StreamingParamsRequest) returns (StreamingParamsResponse);
 }
-
 
 // A StreamingParamsRequest message represents a request to start a streaming
 // session.
-message StreamingParamsRequest {}
+message StreamingParamsRequest {
+  repeated string regions = 1; // The list of cloud regions sorted by proximity.
+  string commit_hash = 2; // The current git commit hash of the frontend.
+  string user_email = 3; // The user email sent by the frontend.
+  string version = 4; // The current numeric version of the frontend. The version string follows semver format.
+  string session = 5; // The id of the current session, represented as a UNIX timestamp.
+  string uid = 6; // The unique identifier of the user, as defined in the authorization server.
+}
 
 // A StreamingParamsResponse message contains the parameters the Whist protocol
 // client should use to connect to an allocated Mandelbox.
-message StreamingParamsResponse {}
+message StreamingParamsResponse {
+  string aes_key = 1; // The private key used to connect to a mandelbox.
+
+  // Ports exposed to the protocol and extension.
+  uint32 host_port_for_tcp32261 = 2;
+  uint32 host_port_for_tcp32262 = 3;
+  uint32 host_port_for_tcp32263 = 4;
+  uint32 host_port_for_tcp32273 = 5;
+}
